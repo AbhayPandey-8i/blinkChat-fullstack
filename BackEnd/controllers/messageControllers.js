@@ -1,6 +1,8 @@
 import { Conversation } from "../models/conversationModel.js"
 import { Message } from "../models/messageModel.js"
 
+
+//send message
 export const sendMessage = async (req, res) => {
     try {
         const senderId = req.id
@@ -26,6 +28,9 @@ export const sendMessage = async (req, res) => {
             gotConversation.messages.push(newMessage._id)
         }
         await gotConversation.save()
+
+         //socket.io
+
         return res.status(201).json({
             message:"Message sent successfully"
         })
@@ -34,3 +39,18 @@ export const sendMessage = async (req, res) => {
         console.log(error)
     }
 } 
+
+//get message
+export const getMessage = async (req, res) => {
+    try {
+        const senderId = req.params.id;
+        const receiverId = req.id;
+        const conversation = await Conversation.findOne({
+            participants:{$all :[senderId, receiverId]}
+        }).populate("messages")
+       return res.status(200).json(conversation?.messages)
+
+    } catch (error) {
+        console.log(error)
+    }
+}
