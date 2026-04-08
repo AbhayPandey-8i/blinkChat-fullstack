@@ -2,41 +2,48 @@ import React, { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import toast from 'react-hot-toast'
 import axios from 'axios'
+import { useDispatch } from 'react-redux'
+import { setAuthUser } from '../redux/userSlice'
+
 
 
 
 const Login = () => {
 
-const navigate = useNavigate()
-const [user, setUser] = useState({
-    username:"",
-    password:"",
-})
+    const dispatch = useDispatch()
+    const navigate = useNavigate()
+    const [user, setUser] = useState({
+        username: "",
+        password: "",
+    })
 
- const onSubmitHandler = async (e) => {
-   e.preventDefault()
+    const onSubmitHandler = async (e) => {
+        e.preventDefault()
 
-  try {
+        try {
             const res = await axios.post(`http://localhost:8080/api/v1/user/login`, user, {
                 headers: {
                     "Content-Type": 'application/json'
                 },
                 withCredentials: true
-            
+
             });
             navigate("/")
-       console.log(res)
-           
+            toast.success("LoggedIn Successfully")
+            dispatch(setAuthUser(res.data))
+
         } catch (error) {
-            toast.error(error.response.data.message)
+            toast.error(
+        error?.response?.data?.message || "Something went wrong"
+    )
             console.log(error)
         }
 
-   setUser({
-    username:"",
-    password:"",
-   })
- }
+        setUser({
+            username: "",
+            password: "",
+        })
+    }
 
     return (
         <div className="min-w-96 mx-auto">
@@ -53,23 +60,23 @@ const [user, setUser] = useState({
                         <label className='label p-2'>
                             <span className='text-base label-text' >Username</span>
                         </label>
-                        <input value={user.username} onChange={(e)=>setUser({...user,username:e.target.value})} className='w-full input input-bordered h-10' type="text" placeholder='Enter Your Username' />
+                        <input value={user.username} onChange={(e) => setUser({ ...user, username: e.target.value })} className='w-full input input-bordered h-10' type="text" placeholder='Enter Your Username' />
                     </div>
                     <div>
                         <label className='label p-2'>
                             <span className='text-base label-text' >Password</span>
                         </label>
-                        <input value={user.password} onChange={(e)=>setUser({...user,password:e.target.value})} className='w-full input input-bordered h-10' type="password" placeholder='Enter Your Password' />
+                        <input value={user.password} onChange={(e) => setUser({ ...user, password: e.target.value })} className='w-full input input-bordered h-10' type="password" placeholder='Enter Your Password' />
                     </div>
 
-                    
+
 
                     <div className=' text-center my-4'>
 
                         <p>New to BlinkChat ? <Link to="/register" > <span className='text-blue-400'>Signup</span>
 
                         </Link></p>
-                            <button type='submit' className='btn btn-block btn-sm mt-2 text-lg border-slate-700'>Login</button>
+                        <button type='submit' className='btn btn-block btn-sm mt-2 text-lg border-slate-700'>Login</button>
                     </div>
 
                 </form>
