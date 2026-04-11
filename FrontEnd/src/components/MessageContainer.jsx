@@ -6,7 +6,7 @@ import store from '../redux/store'
 import { setSelectedUser } from '../redux/userSlice'
 
 const MessageContainer = () => {
-  const {selectedUser} = useSelector(store=>store.user)
+  const {selectedUser, authUser} = useSelector(store=>store.user)
   const dispatch = useDispatch()
   useEffect(() => {
     return() => dispatch(setSelectedUser(null))
@@ -33,7 +33,10 @@ const MessageContainer = () => {
        <Messages/>
        <Sendinput/>
     </div>) : (
-      <h1>Lets start convo baby</h1>
+      <div className='md:min-w-[550px] flex flex-col justify-center items-center '>       
+      <h1 className='text-4xl font-bold'>Hi, {authUser?.fullName} </h1> 
+      <h1 className='text-2xl ' >Lets start convo baby</h1>
+      </div>
     )
     }
     </>
