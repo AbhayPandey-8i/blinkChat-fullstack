@@ -1,36 +1,50 @@
 import { Server } from "socket.io";
-import http from "http"
-import express from "express"
+import http from "http";
+import express from "express";
 
-const app = express()
+const app = express();
+const server = http.createServer(app);
 
-const server = http.createServer(app)
-const io = new Server(server,{
-    cors:{
-        origin:["http://localhost:5173"],
-        methods:['GET', 'POST'],
+const io = new Server(server, {
+    cors: {
+        origin: "http://localhost:5173",
+        credentials: true,
+        methods: ['GET', 'POST'],
     }
-})
+});
 
-const userSocketMap = {}
+
+export const getReceiverSocketId = (receiverId) => {
+    return userSocketMap[receiverId];
+
+    
+};
+const userSocketMap = {};
 
 io.on('connection', (socket) => {
-  console.log("User connected", socket.id)
+    console.log("=== USER CONNECTED ===", socket.id);
 
-  const userId = socket.handshake.query.userId
-  if (userId !== undefined) {
-    userSocketMap[userId] = socket.id
-  }
+    const userId = socket.handshake.query.userId;
+    console.log("userId:", userId);
 
-  io.emit("getOnlineUsers", Object.keys(userSocketMap))
-  
-  socket.on("disconnect", () => {
-    console.log("user disconnected", socket.id)
-    delete userSocketMap[userId]
-    io.emit("getOnlineUsers", Object.keys(userSocketMap))
-  })
+    if (userId && userId !== "undefined") {
+        socket.userId = userId; // ✅ store on socket
+        userSocketMap[userId] = socket.id;
+    }
 
-}
-)
+    console.log("userSocketMap:", userSocketMap);
+    io.emit("getOnlineUsers", Object.keys(userSocketMap));
 
-export {app, io, server}
+    socket.on("disconnect", (reason) => {
+        console.log("=== USER DISCONNECTED ===", socket.id, "reason:", reason);
+
+        if (socket.userId) {
+            delete userSocketMap[socket.userId]; // ✅ FIX
+        }
+
+        console.log("userSocketMap after disconnect:", userSocketMap);
+        io.emit("getOnlineUsers", Object.keys(userSocketMap));
+    });
+});
+
+export { app, io, server };
