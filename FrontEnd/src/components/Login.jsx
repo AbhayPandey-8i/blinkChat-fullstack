@@ -60,13 +60,13 @@ const Login = () => {
                         <label className='label p-2'>
                             <span className='text-base label-text' >Username</span>
                         </label>
-                        <input value={user.username} onChange={(e) => setUser({ ...user, username: e.target.value })} className='w-full input input-bordered h-10' type="text" placeholder='Enter Your Username' />
+                        <input  value={user.username} onChange={(e) => setUser({ ...user, username: e.target.value })} className='w-full input input-bordered outline-none h-10' type="text" placeholder='Enter Your Username' />
                     </div>
                     <div>
                         <label className='label p-2'>
                             <span className='text-base label-text' >Password</span>
                         </label>
-                        <input value={user.password} onChange={(e) => setUser({ ...user, password: e.target.value })} className='w-full input input-bordered h-10' type="password" placeholder='Enter Your Password' />
+                        <input value={user.password} onChange={(e) => setUser({ ...user, password: e.target.value })} className='w-full outline-none input input-bordered h-10' type="password" placeholder='Enter Your Password' />
                     </div>
 
 

@@ -25,7 +25,7 @@ const Message = ({message}) => {
      
     <time className="text-xs opacity-50">12:45</time>
   </div>
-  <div className="chat-bubble"> {message?.message} </div>
+  <div className="chat-bubble break-words max-w-md"> {message?.message} </div>
  
 </div>
 
