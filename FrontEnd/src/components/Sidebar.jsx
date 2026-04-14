@@ -62,7 +62,7 @@ const Sidebar = () => {
       </form>
       <div className="divider px-3"></div>
       <OtherUsers />
-      <div className='mt-2'>
+      <div className=' mt-auto'>
         <button onClick={logoutHandler} className='btn btn-sm bg-white/10 backdrop-blur-lg border-white/20 rounded-xl text-white'>
           Logout
         </button>

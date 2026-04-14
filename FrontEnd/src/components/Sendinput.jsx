@@ -36,7 +36,7 @@ const onSubmitHandler = async (e) => {
   return (
     <form onSubmit={onSubmitHandler} className='px-4 my-3' >
         <div className='w-full relative' >
-           <input value={message} onChange={(e) => setMessage(e.target.value)} className='border text-sm rounded-lg p-3 block border-none outline-none w-full  bg-black/40 text-white' type="text" placeholder='Type here' />
+           <input value={message} onChange={(e) => setMessage(e.target.value)} className='border text-sm rounded-lg p-3 block border-none outline-none w-full  bg-black/40 text-white' type="text" placeholder='Message here…' />
            <button type='submit' className='absolute inset-y-0 right-0 flex items-center pr-4 text-2xl' >
             <IoIosSend /> 
            </button>
