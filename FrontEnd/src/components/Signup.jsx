@@ -63,25 +63,25 @@ const Signup = () => {
                         <label className='label p-2'>
                             <span className='text-base label-text' >Fullname</span>
                         </label>
-                        <input value={user.fullName} onChange={(e) => setUser({ ...user, fullName: e.target.value })} className='w-full input input-bordered h-10' type="text" placeholder='Enter Your Name' />
+                        <input value={user.fullName} onChange={(e) => setUser({ ...user, fullName: e.target.value })} className='w-full outline-none input input-bordered h-10' type="text" placeholder='Enter Your Name' />
                     </div>
                     <div>
                         <label className='label p-2'>
                             <span className='text-base label-text' >Username</span>
                         </label>
-                        <input value={user.username} onChange={(e) => setUser({ ...user, username: e.target.value })} className='w-full input input-bordered h-10' type="text" placeholder='Enter Your Username' />
+                        <input value={user.username} onChange={(e) => setUser({ ...user, username: e.target.value })} className='w-full outline-none input input-bordered h-10' type="text" placeholder='Enter Your Username' />
                     </div>
                     <div>
                         <label className='label p-2'>
                             <span className='text-base label-text' >Password</span>
                         </label>
-                        <input value={user.password} onChange={(e) => setUser({ ...user, password: e.target.value })} className='w-full input input-bordered h-10' type="password" placeholder='Enter Your Password' />
+                        <input value={user.password} onChange={(e) => setUser({ ...user, password: e.target.value })} className='w-full outline-none input input-bordered h-10' type="password" placeholder='Enter Your Password' />
                     </div>
                     <div>
                         <label className='label p-2'>
                             <span className='text-base label-text' >Confirm Password</span>
                         </label>
-                        <input value={user.confirmPassword} onChange={(e) => setUser({ ...user, confirmPassword: e.target.value })} className='w-full input input-bordered h-10' type="password" placeholder='Confirm Your Password' />
+                        <input value={user.confirmPassword} onChange={(e) => setUser({ ...user, confirmPassword: e.target.value })} className='w-full outline-none input input-bordered h-10' type="password" placeholder='Confirm Your Password' />
                     </div>
                     <div className='flex items-center my-4' >
                         <div className='flex items-center' >
